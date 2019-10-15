@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Borrower deposits</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <h3 th:utext="${borrower.getSurname() + ' ' + borrower.getFirstName() + '( ' +borrower.getEmail() + ' )'}"></h3>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>
+                    Id:
+                </th>
+                <th>
+                    Date of creation:
+                </th>
+                <th>
+                    Deposit sum:
+                </th>
+                <th>
+                    Percent of deposit:
+                </th>
+            </tr>
+            </thead>
+            <tbody th:each="operation : ${deposits}">
+            <tr>
+                <td th:utext="${operation.getId()}"></td>
+                <td th:utext="${operation.getCreatedAt()}"></td>
+                <td th:utext="${operation.getTotalAmount()}"></td>
+                <td th:utext="${operation.getPercent()}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <a class="btn btn-primary" th:href="@{/borrowers}">Back</a>
+    </div>
+</body>
+</html>

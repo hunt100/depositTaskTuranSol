@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Borrower registration</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>
+                Id:
+            </th>
+            <th>
+                FirstName:
+            </th>
+            <th>
+                Surname:
+            </th>
+            <th>
+                Email:
+            </th>
+            <th>
+                Show in detail:
+            </th>
+        </tr>
+        </thead>
+        <tbody th:each="borrower : ${borrowers}">
+        <tr>
+            <td th:utext="${borrower.getId()}"></td>
+            <td th:utext="${borrower.getFirstName()}"></td>
+            <td th:utext="${borrower.getSurname()}"></td>
+            <td th:utext="${borrower.getEmail()}"></td>
+            <td><a class="btn btn-outline-secondary" th:href="@{/borrowers/show/{id}(id=${borrower.getId()})}">Show</a></td>
+        </tr>
+        </tbody>
+    </table>
+<div>
+    <h1 class="display-4">Create your own profile with deposit today!</h1>
+    <form class="mt-2" action="/borrowers/addBorrower" th:action="@{/borrowers/addBorrower}" method="post" th:object="${borrower}">
+        <div class="form-group">
+            <label for="firstname">First name:</label>
+            <input class="form-control" type="text" placeholder="Ivan" th:field="*{firstName}" id="firstname" th:errorclass="${#fields.hasErrors('firstName')}? 'is-invalid'" />
+            <div class="invalid-feedback" th:errors="*{firstName}">
+                Please, enter something.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="surname">Surname:</label>
+            <input class="form-control" type="text" placeholder="Ivanov" th:field="*{surname}" id="surname" th:errorclass="${#fields.hasErrors('surname')}? 'is-invalid'"/>
+            <div class="invalid-feedback" th:errors="*{surname}">
+                Please, enter something.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="address">Email address:</label>
+            <input class="form-control" type="email" required placeholder="example@example.com" th:field="*{email}" id="address" th:errorclass="${#fields.hasErrors('email')}? 'is-invalid'"/>
+            <div class="invalid-feedback" th:errors="*{email}">
+                Please, enter something.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="sum">Your sum:</label>
+            <input class="form-control" type="number" placeholder="12345" th:field="*{input}" id="sum" th:errorclass="${#fields.hasErrors('input')}? 'is-invalid'"/>
+            <div class="invalid-feedback" th:errors="*{input}">
+                Please, enter something.
+            </div>
+        </div>
+        <button class="btn btn-outline-primary" type="submit">Submit</button>
+    </form>
+</div>
+</div>
+</body>
+</html>
